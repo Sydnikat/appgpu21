@@ -97,11 +97,11 @@ void execute_on_GPU(Particle* particles, time_t seed, size_t number_of_iteration
 		{
 			const int offset = i * stream_size;
 
-			cudaMemcpyAsync(&d_particles[offset], &particles[offset], number_of_particles * sizeof(Particle), cudaMemcpyHostToDevice, streams[i]);
+			cudaMemcpyAsync(&d_particles[offset], &particles[offset], stream_bytes, cudaMemcpyHostToDevice, streams[i]);
 
 			simpleKernel << <(number_of_particles + block_size - 1) / block_size, block_size, 0, streams[i] >> > (d_particles, number_of_particles, seed, d_randoms, j, offset);
 
-			cudaMemcpyAsync(&particles[offset], &d_particles[offset], number_of_particles * sizeof(Particle), cudaMemcpyDeviceToHost, streams[i]);
+			cudaMemcpyAsync(&particles[offset], &d_particles[offset], stream_bytes, cudaMemcpyDeviceToHost, streams[i]);
 		}
 	}
 
