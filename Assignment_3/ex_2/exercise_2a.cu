@@ -122,7 +122,6 @@ int main(int argc, char* argv[])
 
 	//Particle* h_data = (Particle*)malloc(num_particles * sizeof(Particle));
 	Particle* h_data = 0;
-
 	cudaMallocHost(&h_data, num_particles * sizeof(Particle), cudaHostAllocDefault);
 
 	time_t seed = time(NULL);
@@ -131,6 +130,7 @@ int main(int argc, char* argv[])
 	execute_on_GPU(h_data, seed, num_iterations, num_particles, block_size);
 
 	cudaFreeHost(h_data);
+	//free(h_data);
 
 	return 0;
 }
