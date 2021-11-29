@@ -117,12 +117,6 @@ void execute_on_GPU(Particle* particles, time_t seed, size_t number_of_iteration
 	cudaFree(d_randoms);
 }
 
-bool equals(const float3 a, const float3 b)
-{
-	const float margin = 1e-6;
-	return fabs(a.x - b.x) < margin && fabs(a.y - b.y) < margin && fabs(a.z - b.z) < margin;
-}
-
 int main(int argc, char* argv[])
 {
 	if (argc != 5)
