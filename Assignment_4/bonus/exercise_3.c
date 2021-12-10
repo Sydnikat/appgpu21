@@ -282,6 +282,7 @@ int main(int argc, char* argv[]) {
 	time_t seed = time(NULL);
 	setup_data(cpu_data, num_particles, seed);
 	setup_data(gpu_data, num_particles, seed);
+	setup_data(gpu_data_simple, num_particles, seed);
 
 	execute_on_CPU(cpu_data, num_iterations, num_particles);
 	execute_with_opencl(gpu_data, num_iterations, num_particles, block_size);
